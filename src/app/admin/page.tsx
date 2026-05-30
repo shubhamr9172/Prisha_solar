@@ -315,7 +315,7 @@ export default function AdminPage() {
               <div className="form-group" style={{ textAlign: 'center', background: '#0b0f19', padding: '16px', borderRadius: '8px', marginBottom: '20px', border: '1px dashed #334155' }}>
                 <span style={{ fontSize: '12px', color: '#94a3b8', display: 'block', marginBottom: '8px' }}>Google Authenticator Secret</span>
                 <code style={{ fontSize: '18px', letterSpacing: '0.1em', color: '#e2e8f0', fontWeight: 700 }}>{secretKey}</code>
-                <span style={{ fontSize: '10px', color: '#64748b', display: 'block', marginTop: '6px' }}>Scan this secret to generate dynamic codes. (You can also use fallback code: **123456** to log in)</span>
+                <span style={{ fontSize: '10px', color: '#64748b', display: 'block', marginTop: '6px' }}>Scan this secret to generate dynamic codes. (You can also use fallback code: <strong>123456</strong> to log in)</span>
               </div>
 
               <div className="form-group">
@@ -475,16 +475,87 @@ export default function AdminPage() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', background: 'var(--background)', color: 'var(--foreground)' }}>
+      {/* Responsive admin styling */}
+      <style>{`
+        /* Hide mobile list by default on desktop */
+        .admin-mobile-leads-list {
+          display: none;
+        }
+
+        /* Responsive overrides */
+        @media (max-width: 768px) {
+          .admin-header-container {
+            flex-direction: column !important;
+            align-items: center !important;
+            gap: 16px !important;
+            text-align: center !important;
+            padding: 10px 0 !important;
+          }
+          .admin-header-left {
+            flex-direction: column !important;
+            align-items: center !important;
+            gap: 12px !important;
+            width: 100% !important;
+          }
+          .admin-header-right {
+            justify-content: center !important;
+            width: 100% !important;
+          }
+          
+          /* Responsive tabs */
+          .admin-tabs-container {
+            flex-direction: column !important;
+            gap: 8px !important;
+          }
+          .admin-tabs-container button {
+            width: 100% !important;
+            justify-content: center !important;
+          }
+          
+          /* Controls row spacing */
+          .admin-controls-container {
+            flex-direction: column !important;
+            align-items: stretch !important;
+            gap: 12px !important;
+          }
+          .admin-search-wrapper {
+            max-width: 100% !important;
+            width: 100% !important;
+          }
+          .admin-buttons-wrapper {
+            width: 100% !important;
+            justify-content: space-between !important;
+            gap: 8px !important;
+          }
+          .admin-buttons-wrapper button {
+            flex: 1 !important;
+            justify-content: center !important;
+            font-size: 13px !important;
+          }
+
+          /* Responsive Lead table */
+          .admin-table-card {
+            display: none !important;
+          }
+          .admin-mobile-leads-list {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 16px !important;
+            margin-bottom: 24px !important;
+          }
+        }
+      `}</style>
+
       {/* Header */}
       <header className="sticky top-0 z-50 glass" style={{ borderBottom: '1px solid var(--border)', padding: '16px 0', position: 'sticky', top: 0, zIndex: 50 }}>
-        <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+        <div className="container admin-header-container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
+          <div className="admin-header-left" style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             <Link href="/" className="btn btn-secondary" style={{ padding: '8px 16px', fontSize: '13px' }}>
               <ArrowLeft size={16} /> Home
             </Link>
             <Logo />
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div className="admin-header-right" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <ShieldCheck size={20} style={{ color: 'var(--accent)' }} />
             <span style={{ fontSize: '14px', fontWeight: 600 }}>Parag Yadav (MFA Secured)</span>
           </div>
@@ -528,7 +599,7 @@ export default function AdminPage() {
         )}
 
         {/* Navigation Tabs */}
-        <div style={{ display: 'flex', gap: '16px', marginBottom: '30px', borderBottom: '1px solid var(--border)', paddingBottom: '10px' }}>
+        <div className="admin-tabs-container" style={{ display: 'flex', gap: '16px', marginBottom: '30px', borderBottom: '1px solid var(--border)', paddingBottom: '10px' }}>
           <button 
             className="btn" 
             style={{ 
@@ -556,8 +627,8 @@ export default function AdminPage() {
         {/* TAB 1: Leads view */}
         {activeTab === 'leads' && (
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px', marginBottom: '24px', alignItems: 'center' }}>
-              <div style={{ position: 'relative', maxWidth: '360px', width: '100%' }}>
+            <div className="admin-controls-container" style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px', marginBottom: '24px', alignItems: 'center' }}>
+              <div className="admin-search-wrapper" style={{ position: 'relative', maxWidth: '360px', width: '100%' }}>
                 <Search size={18} style={{ position: 'absolute', left: '12px', top: '14px', color: 'var(--text-muted)' }} />
                 <input 
                   type="text" 
@@ -568,7 +639,7 @@ export default function AdminPage() {
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
               </div>
-              <div style={{ display: 'flex', gap: '10px' }}>
+              <div className="admin-buttons-wrapper" style={{ display: 'flex', gap: '10px' }}>
                 <button className="btn btn-secondary" onClick={loadLeads} style={{ padding: '10px' }}>
                   <RefreshCw size={16} />
                 </button>
@@ -584,7 +655,8 @@ export default function AdminPage() {
               </div>
             </div>
 
-            <div className="card" style={{ padding: '0', overflowX: 'auto' }}>
+            {/* Desktop Leads Table */}
+            <div className="card admin-table-card" style={{ padding: '0', overflowX: 'auto' }}>
               <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '14px' }}>
                 <thead>
                   <tr style={{ background: '#f8fafc', borderBottom: '1px solid var(--border)' }}>
@@ -609,7 +681,7 @@ export default function AdminPage() {
                         </td>
                         <td style={{ padding: '16px' }}>{lead.pincode}</td>
                         <td style={{ padding: '16px' }}>{lead.systemSize || `${lead.load} kW`}</td>
-                        <td style={{ padding: '16px' }}>{lead.netCost ? `₹${lead.netCost.toLocaleString()}` : `Area: ${lead.area} sqft`}</td>
+                        <td style={{ padding: '16px' }}>{lead.netCost ? `₹${lead.netCost.toLocaleString('en-IN')}` : `Area: ${lead.area} sqft`}</td>
                         <td style={{ padding: '16px', fontSize: '13px' }}>{new Date(lead.createdAt).toLocaleDateString()}</td>
                         <td style={{ padding: '16px' }}>
                           <span className="gold-badge" style={{ fontSize: '11px' }}>
@@ -627,6 +699,60 @@ export default function AdminPage() {
                   )}
                 </tbody>
               </table>
+            </div>
+
+            {/* Mobile Cards List */}
+            <div className="admin-mobile-leads-list">
+              {filteredLeads.length > 0 ? (
+                filteredLeads.map((lead, idx) => (
+                  <div key={idx} className="card" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <span style={{ fontWeight: 700, color: 'var(--primary)', fontSize: '14px' }}>
+                        {lead.leadId || lead.proposalId}
+                      </span>
+                      <span className="gold-badge" style={{ fontSize: '11px' }}>
+                        {lead.type || (lead.leadId ? 'Residential' : 'Society B2B')}
+                      </span>
+                    </div>
+                    <div style={{ borderBottom: '1px solid var(--border)', paddingBottom: '8px' }}>
+                      <div style={{ fontWeight: 700, fontSize: '15px', marginBottom: '4px', color: 'var(--foreground)' }}>
+                        {lead.name || lead.societyName}
+                      </div>
+                      <div style={{ fontSize: '12px', color: 'var(--text-muted)', display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                        <div>📞 {lead.phone}</div>
+                        <div>✉️ {lead.email}</div>
+                      </div>
+                      {lead.contactName && (
+                        <div style={{ fontSize: '11.5px', color: 'var(--primary)', marginTop: '4px', fontWeight: 600 }}>
+                          Contact Person: {lead.contactName}
+                        </div>
+                      )}
+                    </div>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', fontSize: '12px' }}>
+                      <div>
+                        <span style={{ color: 'var(--text-muted)', display: 'block', fontSize: '10px', fontWeight: 600 }}>PIN CODE</span>
+                        <span style={{ fontWeight: 700 }}>{lead.pincode}</span>
+                      </div>
+                      <div>
+                        <span style={{ color: 'var(--text-muted)', display: 'block', fontSize: '10px', fontWeight: 600 }}>SYSTEM SIZE</span>
+                        <span style={{ fontWeight: 700 }}>{lead.systemSize || `${lead.load} kW`}</span>
+                      </div>
+                      <div>
+                        <span style={{ color: 'var(--text-muted)', display: 'block', fontSize: '10px', fontWeight: 600 }}>NET COST</span>
+                        <span style={{ fontWeight: 700 }}>{lead.netCost ? `₹${lead.netCost.toLocaleString('en-IN')}` : `Area: ${lead.area} sqft`}</span>
+                      </div>
+                      <div>
+                        <span style={{ color: 'var(--text-muted)', display: 'block', fontSize: '10px', fontWeight: 600 }}>DATE</span>
+                        <span style={{ fontWeight: 700 }}>{new Date(lead.createdAt).toLocaleDateString()}</span>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="card" style={{ padding: '32px', textAlign: 'center', color: 'var(--text-muted)' }}>
+                  No leads registered in pipeline yet.
+                </div>
+              )}
             </div>
           </div>
         )}

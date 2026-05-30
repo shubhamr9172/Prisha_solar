@@ -312,3 +312,11 @@ input:checked + .toggle-switch::after {
   transform: translateX(24px);
 }
 
+/* Global Responsive Layout Grid overrides */
+@media (max-width: 768px) {
+  .hero-split-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+}
+

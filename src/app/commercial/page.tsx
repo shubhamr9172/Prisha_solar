@@ -143,9 +143,9 @@ export default function CommercialPage() {
   return (
     <div className="min-h-screen flex flex-col" style={{ background: 'var(--background)', color: 'var(--foreground)' }}>
       {/* Header */}
-      <header className="sticky top-0 z-50 glass" style={{ borderBottom: '1px solid var(--border)', padding: '16px 0' }}>
-        <div className="container flex items-center justify-between">
-          <div className="flex items-center gap-4">
+      <header className="sticky top-0 z-50 glass" style={{ borderBottom: '1px solid var(--border)', padding: '16px 0', position: 'sticky', top: 0, zIndex: 50 }}>
+        <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             <Link href="/" className="btn btn-secondary" style={{ padding: '8px 16px', fontSize: '13px' }}>
               <ArrowLeft size={16} /> Back
             </Link>
@@ -378,7 +378,7 @@ export default function CommercialPage() {
                     required
                   />
                   <label htmlFor="dpdp" style={{ fontSize: '12px', color: 'var(--text-muted)', lineHeight: 1.5, cursor: 'pointer' }}>
-                    I explicitly consent to Prisha Enterprises storing and processing this corporate installation query in accordance with India&apos;s **Digital Personal Data Protection (DPDP) Act**. All transmission is secured.
+                    I explicitly consent to Prisha Enterprises storing and processing this corporate installation query in accordance with India&apos;s <strong>Digital Personal Data Protection (DPDP) Act</strong>. All transmission is secured.
                   </label>
                 </div>
 
@@ -405,7 +405,7 @@ export default function CommercialPage() {
                 </div>
                 <h3 style={{ fontSize: '24px', marginBottom: '8px' }}>Proposal Lodged!</h3>
                 <p style={{ fontSize: '14px', color: 'var(--text-muted)', marginBottom: '24px' }}>
-                  Thank you, **{contactName}**. The B2B solar grid installation request for **{societyName}** has been successfully registered.
+                  Thank you, <strong>{contactName}</strong>. The B2B solar grid installation request for <strong>{societyName}</strong> has been successfully registered.
                 </p>
                 <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '8px', border: '1px solid var(--border)', marginBottom: '30px', textAlign: 'left' }}>
                   <div style={{ fontSize: '13px', marginBottom: '4px' }}><strong>Proposal Ref:</strong> {proposalId}</div>

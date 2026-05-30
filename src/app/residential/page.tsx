@@ -484,9 +484,9 @@ function ResidentialContent() {
   return (
     <div className="min-h-screen flex flex-col" style={{ background: 'var(--background)', color: 'var(--foreground)' }}>
       {/* Header */}
-      <header className="sticky top-0 z-50 glass" style={{ borderBottom: '1px solid var(--border)', padding: '16px 0' }}>
-        <div className="container flex items-center justify-between">
-          <div className="flex items-center gap-4">
+      <header className="sticky top-0 z-50 glass" style={{ borderBottom: '1px solid var(--border)', padding: '16px 0', position: 'sticky', top: 0, zIndex: 50 }}>
+        <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             <Link href="/" className="btn btn-secondary" style={{ padding: '8px 16px', fontSize: '13px' }}>
               <ArrowLeft size={16} /> Back
             </Link>
@@ -510,7 +510,7 @@ function ResidentialContent() {
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px' }}>
                   <span style={{ fontSize: '14px', fontWeight: 700, textTransform: 'uppercase', color: 'var(--text-muted)' }}>Average Monthly Bill</span>
                   <span style={{ fontWeight: 800, color: 'var(--primary)', fontSize: '20px' }}>
-                    ₹{billAmount.toLocaleString()}
+                    ₹{billAmount.toLocaleString('en-IN')}
                   </span>
                 </div>
                 <input 
@@ -523,8 +523,8 @@ function ResidentialContent() {
                   style={{ width: '100%', accentColor: 'var(--primary)', cursor: 'pointer', height: '6px', borderRadius: '3px' }}
                 />
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: 'var(--text-muted)', marginTop: '8px' }}>
-                  <span>₹{MIN_BILL.toLocaleString()}</span>
-                  <span>₹{MAX_BILL.toLocaleString()}</span>
+                  <span>₹{MIN_BILL.toLocaleString('en-IN')}</span>
+                  <span>₹{MAX_BILL.toLocaleString('en-IN')}</span>
                 </div>
               </div>
 
@@ -539,26 +539,26 @@ function ResidentialContent() {
                 <div style={{ background: 'var(--secondary-light)', padding: '20px', borderRadius: '8px', border: '1px solid var(--secondary)' }}>
                   <span style={{ fontSize: '12px', fontWeight: 700, textTransform: 'uppercase', color: 'var(--text-muted)' }}>PM Government Subsidy</span>
                   <div style={{ fontSize: '24px', fontWeight: 800, color: '#b45309', marginTop: '4px' }}>
-                    ₹{calc.subsidy.toLocaleString()}
+                    ₹{calc.subsidy.toLocaleString('en-IN')}
                   </div>
                 </div>
                 <div style={{ background: '#FFFFFF', padding: '20px', borderRadius: '8px', border: '1px solid var(--border)' }}>
                   <span style={{ fontSize: '12px', fontWeight: 700, textTransform: 'uppercase', color: 'var(--text-muted)' }}>Estimated Cost</span>
                   <div style={{ fontSize: '20px', fontWeight: 700, color: 'var(--foreground)', marginTop: '4px' }}>
-                    ₹{calc.estimatedCost.toLocaleString()}
+                    ₹{calc.estimatedCost.toLocaleString('en-IN')}
                   </div>
                 </div>
                 <div style={{ background: '#FFFFFF', padding: '20px', borderRadius: '8px', border: '1px solid var(--border)' }}>
                   <span style={{ fontSize: '12px', fontWeight: 700, textTransform: 'uppercase', color: 'var(--text-muted)' }}>Net Investment</span>
                   <div style={{ fontSize: '20px', fontWeight: 700, color: 'var(--foreground)', marginTop: '4px' }}>
-                    ₹{calc.netCost.toLocaleString()}
+                    ₹{calc.netCost.toLocaleString('en-IN')}
                   </div>
                 </div>
               </div>
 
               <div style={{ background: '#E6F4EA', border: '1px solid #A3E2B7', borderRadius: '8px', padding: '16px', fontSize: '14px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '8px', color: '#137333', marginBottom: '24px' }}>
                 <Zap size={18} />
-                <span>Save approx. ₹{calc.monthlySavings.toLocaleString()}/month. Payback in {calc.paybackYears} years.</span>
+                <span>Save approx. ₹{calc.monthlySavings.toLocaleString('en-IN')}/month. Payback in {calc.paybackYears} years.</span>
               </div>
 
               {/* 15-Year Cumulative Savings Projection Graph */}
@@ -601,7 +601,7 @@ function ResidentialContent() {
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#F9FAFB', padding: '16px', borderRadius: '8px', border: '1px solid var(--border)' }}>
                 <span style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-muted)' }}>Estimated Monthly EMI</span>
                 <span style={{ fontSize: '22px', fontWeight: 800, color: 'var(--primary)' }}>
-                  ₹{calc.emiOptions.find(o => o.tenure === selectedTenure)?.emi.toLocaleString()}/mo
+                  ₹{calc.emiOptions.find(o => o.tenure === selectedTenure)?.emi.toLocaleString('en-IN')}/mo
                 </span>
               </div>
             </div>
@@ -831,7 +831,7 @@ function ResidentialContent() {
                     required
                   />
                   <label htmlFor="dpdp" style={{ fontSize: '12px', color: 'var(--text-muted)', lineHeight: 1.5, cursor: 'pointer' }}>
-                    I explicitly consent to Prisha Enterprises storing and processing my personal records per **Digital Personal Data Protection (DPDP) Act**. Data is encrypted at rest.
+                    I explicitly consent to Prisha Enterprises storing and processing my personal records per <strong>Digital Personal Data Protection (DPDP) Act</strong>. Data is encrypted at rest.
                   </label>
                 </div>
 
@@ -859,12 +859,12 @@ function ResidentialContent() {
                 </div>
                 <h3 style={{ fontSize: '22px', fontWeight: 700, marginBottom: '8px' }}>Booking Confirmed</h3>
                 <p style={{ fontSize: '13.5px', color: 'var(--text-muted)', marginBottom: '24px' }}>
-                  Thank you, **{name}**. Your site survey slot is pre-qualified. An engineer will reach out.
+                  Thank you, <strong>{name}</strong>. Your site survey slot is pre-qualified. An engineer will reach out.
                 </p>
                 <div style={{ background: 'var(--background)', padding: '20px', borderRadius: '8px', border: '1.5px solid var(--border)', marginBottom: '30px', textAlign: 'left', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                   <div style={{ fontSize: '13.5px' }}><strong>Lead Reference:</strong> {leadId}</div>
                   <div style={{ fontSize: '13.5px' }}><strong>System Size:</strong> {calc.recommendedCapacitykW} kW</div>
-                  <div style={{ fontSize: '13.5px' }}><strong>Net Cost:</strong> ₹{calc.netCost.toLocaleString()}</div>
+                  <div style={{ fontSize: '13.5px' }}><strong>Net Cost:</strong> ₹{calc.netCost.toLocaleString('en-IN')}</div>
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                   <Link href="/" className="btn btn-primary">

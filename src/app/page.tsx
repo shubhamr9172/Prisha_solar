@@ -20,7 +20,8 @@ import {
   ChevronLeft,
   Wrench,
   Briefcase,
-  X
+  X,
+  Menu
 } from 'lucide-react';
 
 function CallbackMicroForm() {
@@ -150,6 +151,7 @@ export default function Home() {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [billRange, setBillRange] = useState('2500-4000');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
   // Before & After Slider State
   const [sliderPosition, setSliderPosition] = useState(50);
@@ -475,7 +477,7 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col" style={{ background: 'var(--background)', color: 'var(--foreground)', overflowX: 'hidden' }}>
       {/* Premium Header */}
-      <header className="sticky top-0 z-50 animate-fade-in-up" style={{ background: 'rgba(255, 255, 255, 0.9)', backdropFilter: 'blur(12px)', borderBottom: '1px solid var(--border)', padding: '14px 0' }}>
+      <header className="sticky top-0 z-50 animate-fade-in-up" style={{ background: 'rgba(255, 255, 255, 0.9)', backdropFilter: 'blur(12px)', borderBottom: '1px solid var(--border)', padding: '14px 0', position: 'sticky', top: 0 }}>
         <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Link href="/" style={{ textDecoration: 'none', display: 'block' }}>
             <Logo lightMode={theme === 'light'} size="sm" />
@@ -496,11 +498,39 @@ export default function Home() {
             >
               {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
             </button>
-            <Link href="/residential" className="btn btn-primary" style={{ fontSize: '13px', padding: '10px 20px' }}>
+            <Link href="/residential" className="btn btn-primary nav-desktop-only" style={{ fontSize: '13px', padding: '10px 20px' }}>
               Schedule Free Visit
             </Link>
+            <button 
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="btn btn-secondary nav-mobile-toggle-btn"
+              style={{ padding: '8px', borderRadius: '50%', width: '38px', height: '38px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+              aria-label="Toggle mobile menu"
+            >
+              {isMobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
+            </button>
           </div>
         </div>
+
+        {/* Mobile Navigation Dropdown Menu */}
+        {isMobileMenuOpen && (
+          <div 
+            style={{ 
+              background: 'var(--card-bg)', 
+              borderTop: '1px solid var(--border)', 
+              padding: '16px 24px 8px 24px', 
+              display: 'flex', 
+              flexDirection: 'column', 
+              gap: '4px',
+              marginTop: '14px'
+            }}
+            className="animate-fade-in-up"
+          >
+            <Link href="/residential" className="header-nav-link" style={{ padding: '12px', fontSize: '14.5px', fontWeight: 600, display: 'block', borderBottom: '1px solid var(--border)' }} onClick={() => setIsMobileMenuOpen(false)}>Residential Solar</Link>
+            <Link href="/commercial" className="header-nav-link" style={{ padding: '12px', fontSize: '14.5px', fontWeight: 600, display: 'block', borderBottom: '1px solid var(--border)' }} onClick={() => setIsMobileMenuOpen(false)}>Commercial B2B</Link>
+            <Link href="/admin" className="header-nav-link" style={{ padding: '12px', fontSize: '14.5px', fontWeight: 600, display: 'block' }} onClick={() => setIsMobileMenuOpen(false)}>Admin Panel</Link>
+          </div>
+        )}
       </header>
 
       {/* Split Hero Section */}
@@ -519,7 +549,7 @@ export default function Home() {
             </h1>
             
             <p style={{ fontSize: '17px', color: 'var(--text-muted)', maxWidth: '580px', lineHeight: 1.6 }}>
-              Acquire up to **₹78,000** in direct subsidies under PM Surya Ghar Yojana. We manage engineering, licensing, and net-metering.
+              Acquire up to <strong>₹78,000</strong> in direct subsidies under PM Surya Ghar Yojana. We manage engineering, licensing, and net-metering.
             </p>
 
             {/* Checkmark List */}
@@ -1270,7 +1300,7 @@ export default function Home() {
                       BEFORE BILL
                     </div>
                     <div style={{ fontSize: '18px', fontWeight: 800, color: '#C53030', textDecoration: 'line-through', marginTop: '2px' }}>
-                      ₹{cs.beforeBill.toLocaleString()}
+                      ₹{cs.beforeBill.toLocaleString('en-IN')}
                     </div>
                     <span style={{ fontSize: '10px', color: '#9B2C2C', fontWeight: 600 }}>per month</span>
                   </div>
@@ -1281,7 +1311,7 @@ export default function Home() {
                       AFTER SOLAR
                     </div>
                     <div style={{ fontSize: '18px', fontWeight: 800, color: '#22543D', marginTop: '2px' }}>
-                      ₹{cs.afterBill.toLocaleString()}
+                      ₹{cs.afterBill.toLocaleString('en-IN')}
                     </div>
                     <span style={{ fontSize: '10px', color: '#276749', fontWeight: 600 }}>per month</span>
                   </div>
@@ -1736,7 +1766,7 @@ export default function Home() {
                   <div>
                     <h3 style={{ fontSize: '22px', fontWeight: 800, color: 'var(--primary)' }}>Consultation Booked</h3>
                     <p style={{ fontSize: '13.5px', color: 'var(--text-muted)', marginTop: '6px', lineHeight: 1.5 }}>
-                      Thank you, **{popupName}**. Your dynamic solar savings profile has been secured.
+                      Thank you, <strong>{popupName}</strong>. Your dynamic solar savings profile has been secured.
                     </p>
                   </div>
                   <div style={{ background: 'var(--primary-light)', padding: '16px', borderRadius: '8px', border: '1px solid var(--border)', textAlign: 'left', width: '100%', display: 'flex', flexDirection: 'column', gap: '6px' }}>
@@ -1903,6 +1933,10 @@ export default function Home() {
           }
         }
 
+        .nav-mobile-toggle-btn {
+          display: none !important;
+        }
+
         @media (max-width: 768px) {
           .hero-split-grid {
             grid-template-columns: 1fr !important;
@@ -1910,6 +1944,9 @@ export default function Home() {
           }
           .nav-desktop-only {
             display: none !important;
+          }
+          .nav-mobile-toggle-btn {
+            display: flex !important;
           }
           .popup-modal-card {
             grid-template-columns: 1fr !important;
