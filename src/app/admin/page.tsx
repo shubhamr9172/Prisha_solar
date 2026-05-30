@@ -315,7 +315,6 @@ export default function AdminPage() {
               <div className="form-group" style={{ textAlign: 'center', background: '#0b0f19', padding: '16px', borderRadius: '8px', marginBottom: '20px', border: '1px dashed #334155' }}>
                 <span style={{ fontSize: '12px', color: '#94a3b8', display: 'block', marginBottom: '8px' }}>Google Authenticator Secret</span>
                 <code style={{ fontSize: '18px', letterSpacing: '0.1em', color: '#e2e8f0', fontWeight: 700 }}>{secretKey}</code>
-                <span style={{ fontSize: '10px', color: '#64748b', display: 'block', marginTop: '6px' }}>Scan this secret to generate dynamic codes. (You can also use fallback code: <strong>123456</strong> to log in)</span>
               </div>
 
               <div className="form-group">
